@@ -1,7 +1,8 @@
 export declare class ConvertToSpeech {
     voiceLang: string;
     content: string;
-    utteranceObject: SpeechSynthesisUtterance;
+    synth: SpeechSynthesis;
+    voiceData: Array<SpeechSynthesisVoice>;
     constructor(voiceLang: string, content: string);
     startSpeech(): void;
     pauseSpeech(): void;

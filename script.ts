@@ -1,40 +1,34 @@
-import { voiceType } from "./enumDeclaration.js";
-
-const synth: SpeechSynthesis = window.speechSynthesis;
-const voiceData: Array<SpeechSynthesisVoice> = synth.getVoices();
-
 export class ConvertToSpeech {
-  utteranceObject: SpeechSynthesisUtterance;
+  synth: SpeechSynthesis = window.speechSynthesis;
+  voiceData: Array<SpeechSynthesisVoice> = this.synth.getVoices();
+
   constructor(public voiceLang: string, public content: string) {
-    this.utteranceObject = new SpeechSynthesisUtterance(this.content);
+    this.synth.cancel();
   }
 
   startSpeech() {
-    this.utteranceObject.voice = voiceData[50];
+    if (!this.synth.speaking && !this.content.trim().length) {
+      console.log("No Content provided for operation");
+    }
 
-    synth.speak(this.utteranceObject);
+    if (!this.synth.speaking && this.content.trim().length) {
+      const newUtter = new SpeechSynthesisUtterance(this.content);
+      newUtter.voice = this.voiceData.find(
+        (voice) => voice.lang === this.voiceLang
+      ) as SpeechSynthesisVoice;
+      this.synth.speak(newUtter);
+    }
   }
 
   pauseSpeech() {
-    synth.pause();
+    if (this.synth.speaking) this.synth.pause();
   }
 
   resumeSpeech() {
-    synth.resume();
+    if (!this.synth.speaking) this.synth.resume();
   }
 
   stopSpeech() {
-    synth.cancel();
+    if (this.synth.speaking) this.synth.cancel();
   }
 }
-
-let obj = new ConvertToSpeech(
-  voiceType.HINDI,
-  "कंटेंट राइटिंग का मतलब होता है लेखन द्वारा किसी भी विषय से संबंधित आवश्यक जानकारी देना। कंटेंट राइटिंग अलग-अलग प्रकार की हो सकती है जैसे- ब्लॉग लिखना, पॉडकास्ट के लिए स्क्रिप्ट लिखना, यूट्यूब के लिए लिखना, अखबार या मैगज़ीन के लिए आर्टिक्ल लिखना आदि। लिखने की कला और भाव दोनों इसपर"
-);
-
-// setTimeout(() => {
-//   obj.stopSpeech();
-// }, 300);
-
-obj.startSpeech();
