@@ -32,3 +32,12 @@ export class ConvertToSpeech {
     if (this.synth.speaking) this.synth.cancel();
   }
 }
+
+export enum voiceType {
+  CATALAN = "ca",
+  ENGLISH = "en",
+  AFRIKAANS = "af",
+  ITALIAN = "it",
+  GERMAN = "de",
+  TURKISH = "tr",
+}
