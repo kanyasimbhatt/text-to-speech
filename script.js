@@ -1,18 +1,26 @@
+export var voiceType;
+(function (voiceType) {
+    voiceType["CATALAN"] = "ca";
+    voiceType["ENGLISH"] = "en";
+    voiceType["AFRIKAANS"] = "af";
+    voiceType["ITALIAN"] = "it";
+    voiceType["GERMAN"] = "de";
+    voiceType["TURKISH"] = "tr";
+})(voiceType || (voiceType = {}));
 export class ConvertToSpeech {
-    constructor(voiceLang, content) {
-        this.voiceLang = voiceLang;
-        this.content = content;
+    constructor(language) {
+        this.language = language;
         this.synth = window.speechSynthesis;
         this.voiceData = this.synth.getVoices();
         this.synth.cancel();
     }
     startSpeech() {
-        if (!this.synth.speaking && !this.content.trim().length) {
+        if (!this.synth.speaking && !this.language.content.trim().length) {
             console.log("No Content provided for operation");
         }
-        if (!this.synth.speaking && this.content.trim().length) {
-            const newUtter = new SpeechSynthesisUtterance(this.content);
-            newUtter.voice = this.voiceData.find((voice) => voice.lang === this.voiceLang);
+        if (!this.synth.speaking && this.language.content.trim().length) {
+            const newUtter = new SpeechSynthesisUtterance(this.language.content);
+            newUtter.voice = this.voiceData.find((voice) => voice.lang === this.language.lang);
             this.synth.speak(newUtter);
         }
     }
