@@ -9,9 +9,18 @@
 - resumeSpeech
 - pauseSpeech
 
+#### It currently supports the following languages: 
+- CATALAN
+- ENGLISH
+- AFRIKAANS
+- ITALIAN
+- GERMAN
+- TURKISH
+
 #### How to use it:
 
-Disclaimer - An event listener is necessary to use this library.
+Disclaimer - An event listener is necessary to use this library
+- 
 
 1. Run `npm i @kanyabhatt/texttospeechpackage` in your terminal
 2. Create your script and while attaching it to the html file add type as module: `<script src = './xyz.js' type = 'module'>`
@@ -25,5 +34,7 @@ Disclaimer - An event listener is necessary to use this library.
 
 5. Now just call the predefined functions given:
    `obj.startSpeech()`
+
+
 
 ### Thank you for exploring my library, If you have any enhancements and improvements in mind, do reach out at github
